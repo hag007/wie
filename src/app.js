@@ -43,7 +43,7 @@ if (process.env.VCAP_SERVICES) {
   mongoAddress = env['mongodb-1.8'][0]['credentials'];
 } else if (process.env.OPENSHIFT_MONGODB_DB_URL) {
   console.log('about to start mongo.');
-  mongoAddress = process.env.OPENSHIFT_MONGODB_DB_URL + "wie2";
+  mongoAddress = process.env.OPENSHIFT_MONGODB_DB_URL + "wie";
 }
 
 // Connect to the DB
