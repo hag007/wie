@@ -49,27 +49,28 @@
     <a name="team-{{team}}" class="team-divider">צוות {{ team }}</a>
     <ul>
     {{#each members}}
-      <li class="dude-list">
-        {{dude-here dude=this}}
-        <div class="update-matzeva-dude-info">
-          <span class="update-matzeva-dude-name">{{ name }}</span>
-          <div class="update-matzeva-additional-info">
-            <a click="#" class="update-matzeva-dude-reason">
-            {{#if isEditing}}
-              {{edit-why who=this placeholder="לא נוכח" }}
-            {{else}}
-              <span class="update-matzeva-dude-reason-text" {{action 'editWhy' this on="doubleClick"}}>{{ whyOrHere }}</span>
-            {{/if}}
-            </a>
-            <span class="update-matzeva-last-updated">{{ lastUpdated }}</span>
-          </div>
-        </div>
-      </li>
+      {{view-single-dude dude=this}}
     {{/each}}
     </ul>
   </li>
   {{/each}}
 </ul>
+</script>
+<script type="text/x-handlebars" data-template-name="view-single-dude">
+  {{dude-here dude=this}}
+  <div class="update-matzeva-dude-info">
+    <span class="update-matzeva-dude-name">{{ name }}</span>
+    <div class="update-matzeva-additional-info">
+      <a click="#" class="update-matzeva-dude-reason">
+      {{#if isEditing}}
+        {{edit-why who=this placeholder="לא נוכח" }}
+      {{else}}
+        <span class="update-matzeva-dude-reason-text">{{ whyOrHere }}</span>
+      {{/if}}
+      </a>
+      <span class="update-matzeva-last-updated">{{ lastUpdated }}</span>
+    </div>
+  </div>
 </script>
 <script type="text/x-handlebars" data-template-name="components/edit-why">
   {{input value=bufferedWhy class="edit-text-input" escape-press='cancelEditing' focus-out='saveWhy' insert-newline='saveWhy' }}
@@ -112,6 +113,24 @@
       dude.setProperties({ here: data.here, why: data.why });
     });
   });
+
+  App.ViewSingleDudeView = Ember.View.extend({
+    templateName: 'view-single-dude',
+    classNames: ['dude-list'],
+    whoBinding: 'view.dude',
+    nameBinding: 'dude.name',
+    isEditingBinding: 'dude.isEditing',
+    lastUpdatedBinding: 'dude.lastUpdated',
+    whyOrHereBinding: 'who.whyOrHere',
+
+    gestures: {
+      doubleTap: function(event) {
+        this.set('dude.isEditing', true);
+      }
+    }
+  });
+
+  Ember.Handlebars.helper('view-single-dude', App.ViewSingleDudeView);
 
   App.EditWhyComponent = Ember.Component.extend({
     bufferedWhyBinding: Ember.Binding.oneWay('who.why'),
@@ -273,10 +292,15 @@
   
 
   // For showing nice thumbs up or down
-  App.DudeHereComponent = Ember.Component.extend({
+  App.DudeHereView = Ember.View.extend({
     tagName: 'span',
     classNameBindings: ['dude.isHere:in-matzeva', 'isHere:fa-thumbs-up', 'isNotHere:fa-thumbs-down', 'isLoading:fa-spinner', 'isLoading:fa-spin'],
     classNames: ['is-in-matzeva'],
+
+    logDude: function() {
+      console.log(this.get('dude'));
+    }.on('didInsertElement'),
+
     isLoading: function() {
       return this.get('dude.isSaving');
     }.property('dude.isLoading'),
@@ -292,6 +316,8 @@
       this.get('dude').toggleHere().save();
     }
   });
+
+  Ember.Handlebars.helper('dude-here', App.DudeHereView);
 
   App.ApplicationAdapter = DS.RESTAdapter.extend({
     namespace: 'api'
@@ -318,8 +344,8 @@
   App.Dude = DS.Model.extend({
     team: DS.attr('number'),
     name: DS.attr('string'),
-    why: DS.attr('string'),
-    here: DS.attr('boolean'),
+    why: DS.attr('string', { defaultValue: "לא נוכח" }),
+    here: DS.attr('boolean', { defaultValue: false }),
     isHere: function() {
       return this.get('here');
     }.property('here'),
