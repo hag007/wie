@@ -15,10 +15,17 @@ var getEnvVar = dependencies.getEnvVar = function(name, defaultValue) {
 
 require('./models/dude')(dependencies);
 
+var mon = monami(Mongoose);
+mon.reopen({
+  destroy: function() {},
+  update: function() {},
+  insert: function() {}
+});
+
 var app = express();
 var server = dependencies.server = require('http').createServer(app);
 app.use(bodyParser());
-app.use('/api', monami(Mongoose));
+app.use('/api', mon);
 app.use(express.static(path.resolve(__dirname, "../public")));
 
 var io = require('socket.io').listen(server);
