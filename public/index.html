@@ -206,6 +206,7 @@
         if (this.get('showItsMe')) {
           App.set('me.dude', this.get('dude.id'));
           App.set('me.team', this.get('dude.team'));
+          window.scrollTo(0,0);
           this.set('showItsMe', false);
         }
       }
@@ -382,7 +383,7 @@
         why: record.get('why')
       });
 
-      console.log("emitted to server.");
+      console.log("emitted new data to server.");
 
       return Ember.RSVP.resolve();
     }
@@ -426,6 +427,7 @@
   App.ResetRoute = Ember.Route.extend({
     actions: {
       reset: function() {
+        console.log('emitting resetAll function to the server');
         App.Socket.emit('resetAll', true);
         this.transitionTo('update');
       },
@@ -453,6 +455,7 @@
   App.UpdateController = Em.ArrayController.extend({
     teams: function() {
       var teams = {'1': [],'2': [],'3': [],'4': [],'5': [],'6': []};
+      var myTeam = null;
 
       this.get('model').forEach(function(dude) {
         var team = dude.get('team');
@@ -460,22 +463,29 @@
         if (dude.get('id') !== App.get('me.dude')) {
           teams[dude.get('team').toString()].push(dude);
         } else {
+          myTeam = dude.get('team');
           teams[dude.get('team').toString()].insertAt(0, dude);
         }
       });
 
 
-      var teamsArray = (function() {
+      var teamsArray = (function(selectedTeam) {
         var arr = [];
 
         var teamsKeys = Object.keys(teams);
         for (var i = 0; i < teamsKeys.length; i++) {
           var team = teamsKeys[i];
-          arr.push({ team: team, members: teams[team] });
+          var whatToPush = { team: team, members: teams[team] };
+
+          if (team != selectedTeam) {
+            arr.push(whatToPush);
+          } else {
+            arr.insertAt(0, whatToPush);
+          }
         }
 
         return arr;
-      })();
+      })(myTeam);
 
       return teamsArray;
     }.property('model', 'App.me.dude')
