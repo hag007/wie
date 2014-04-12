@@ -166,6 +166,17 @@
     });
   });
 
+  App.ApplicationView = Ember.View.extend({
+    gestures: {
+      dragLeft: function(event) {
+        return false;
+      },
+      dragRight: function(event) {
+        return false;
+      }
+    }
+  });
+
   App.ViewSingleDudeView = Ember.View.extend({
     tagName: 'li',
     templateName: 'view-single-dude',
