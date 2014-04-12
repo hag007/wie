@@ -100,6 +100,11 @@
     }
   });
 
+  App.LoaderComponent = Ember.Component.extend({
+    classNames: ['wait-loader'],
+    template: "<img src='/ajax-loader.gif'>"
+  })
+
   App.Socket = io.connect();
   App.Socket.on('userStatusChange', function(data) {
     console.log("got data: ", data);
@@ -270,8 +275,19 @@
   // For showing nice thumbs up or down
   App.DudeHereComponent = Ember.Component.extend({
     tagName: 'span',
-    classNameBindings: ['dude.isHere:in-matzeva', 'dude.isHere:fa-thumbs-up:fa-thumbs-down'],
+    classNameBindings: ['dude.isHere:in-matzeva', 'isHere:fa-thumbs-up', 'isNotHere:fa-thumbs-down', 'isLoading:fa-spinner', 'isLoading:fa-spin'],
     classNames: ['is-in-matzeva'],
+    isLoading: function() {
+      return this.get('dude.isSaving');
+    }.property('dude.isLoading'),
+
+    isHere: function() {
+      return !this.get('isLoading') && this.get('dude.isHere');
+    }.property('isLoading', 'dude.isHere'),
+
+    isNotHere: function() {
+      return !this.get('isLoading') && !this.get('dude.isHere');
+    }.property('isLoading', 'dude.isHere'),
     click: function() {
       this.get('dude').toggleHere().save();
     }
