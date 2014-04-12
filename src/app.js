@@ -38,7 +38,7 @@ io.sockets.on('connection', function(socket) {
 });
 
 // Connect to the DB
-Mongoose.connect("mongodb://localhost/wie2_test");
+Mongoose.connect(process.env.MONGOHQ_URL || "mongodb://localhost/wie2_test");
 
 if (!module.parent) {
   server.listen(8080);
