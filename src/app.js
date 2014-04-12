@@ -35,6 +35,18 @@ io.sockets.on('connection', function(socket) {
       }
     })
   });
+
+  socket.on('resetAll', function(resetAll) {
+    Mongoose.models.Dude.find(function(err, dudes) {
+      dudes.forEach(function(dude) {
+        dude.here = false;
+        dude.save();
+      });
+    });
+
+    socket.broadcast.emit('resetAll', true);
+    socket.emit('resetAll', true);
+  });
 });
 
 var mongoAddress = process.env.MONGOHQ_URL || "mongodb://localhost/wie2_test";

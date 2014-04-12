@@ -57,10 +57,12 @@
 </ul>
 </script>
 <script type="text/x-handlebars" data-template-name="reset">
-  <h1>האם אתה בטוח שברצונך לאפס?</h1>
-  <button class="save button"><i class="fa-check"></i></button>
-  <button class="cancel button"><i class="fa-times"></i></button>
+<div id="reset-page">
+  <h1 id="reset-validation">האם אתה בטוח שברצונך לאפס?</h1>
+  <button class="save button" {{action 'reset'}}><i class="fa-check"></i></button>
+  <button class="cancel button" {{action 'goBack'}}><i class="fa-times"></i></button>
 </script>
+</div>
 <script type="text/x-handlebars" data-template-name="view-single-dude">
   {{dude-here dude=this}}
   <div class="update-matzeva-dude-info">
@@ -152,6 +154,15 @@
     console.log("got data: ", data);
     App.Dude.store.find("dude", data.id).then(function(dude) {
       dude.setProperties({ here: data.here, why: data.why });
+    });
+  });
+
+  App.Socket.on('resetAll', function(data) {
+    console.log('reseting...');
+    App.Dude.store.find("dude").then(function(dudes) {
+      dudes.forEach(function(dude) {
+        dude.set('here', false);
+      });
     });
   });
 
@@ -410,6 +421,18 @@
     this.route("report", { path: "/report" });
     this.route("update", { path: "/update" });
     this.route("reset", { path: "/reset" });
+  });
+
+  App.ResetRoute = Ember.Route.extend({
+    actions: {
+      reset: function() {
+        App.Socket.emit('resetAll', true);
+        this.transitionTo('update');
+      },
+      goBack: function() {
+        this.transitionTo('update');
+      }
+    }
   });
 
   App.IndexRoute = Em.Route.extend({
