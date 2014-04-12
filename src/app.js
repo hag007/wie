@@ -51,7 +51,7 @@ Mongoose.connect(mongoAddress);
 
 if (!module.parent) {
   var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || process.env.VCAP_APP_PORT || 8080;
-  var ip = process.env.OPENSHIFT_INTERNAL_IP || "127.0.0.1"
+  var ip = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1"
   server.listen(port, ip);
   console.log("Listening on port " + ip + ":" + port + "..");
 }
