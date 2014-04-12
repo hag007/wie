@@ -81,6 +81,8 @@ ul {
 }
 
 .dude-list {
+  align-items: center;
+  justify-content: center;
   display: flex;
   margin: 0.1em 0;
 }
@@ -94,6 +96,7 @@ ul {
 }
 
 .update-matzeva-dude-reason-text {
+  flex: 1;
   display: block;
 }
 
@@ -148,6 +151,7 @@ ul {
 .report-dude-details {
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .report-dude-name {
@@ -169,4 +173,29 @@ ul {
 
 #report-details {
   text-align: center;
+}
+
+.this-dude-is-here {
+  font-size: 2em;
+  font-weight: bold;
+  color: green;
+  display: none;
+}
+
+.oops.this-dude-is-here {
+  display: block;
+}
+
+.its-me {
+  display: none;
+  color: #2f4eac;
+}
+
+.its-me.show {
+  display: block;
+}
+
+.is-me {
+  background-color: rgb(240, 240, 248);
+  box-shadow: 0 0 11px rgba(160, 170, 168, 0.5);
 }
