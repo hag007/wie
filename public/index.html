@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html manifest="cache.manifest">
+<html>
 <head>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
@@ -19,6 +19,7 @@
   <ul id="top-tabs">
     <li class="top-tab">{{#link-to 'update'}}עדכון מצבה{{/link-to}}</li>
     <li class="top-tab">{{#link-to 'report'}}הפק מצבה{{/link-to}}</li>
+    <li class="top-tab">{{#link-to 'reset'}}אפס מצבה{{/link-to}}</li>
   </ul>
 </header>
 <div id="main-page">
@@ -54,6 +55,11 @@
   </li>
   {{/each}}
 </ul>
+</script>
+<script type="text/x-handlebars" data-template-name="reset">
+  <h1>האם אתה בטוח שברצונך לאפס?</h1>
+  <button class="save button"><i class="fa-check"></i></button>
+  <button class="cancel button"><i class="fa-times"></i></button>
 </script>
 <script type="text/x-handlebars" data-template-name="view-single-dude">
   {{dude-here dude=this}}
@@ -403,6 +409,7 @@
   App.Router.map(function() {
     this.route("report", { path: "/report" });
     this.route("update", { path: "/update" });
+    this.route("reset", { path: "/reset" });
   });
 
   App.IndexRoute = Em.Route.extend({
