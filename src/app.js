@@ -42,7 +42,7 @@ if (process.env.VCAP_SERVICES) {
   var env = JSON.parse(process.env.VCAP_SERVICES);
   mongoAddress = env['mongodb-1.8'][0]['credentials'];
 } else if (process.env.OPENSHIFT_MONGODB_DB_HOST) {
-  mongoAddress = process.env.OPENSHIFT_MONGODB_DB_URL + "wie2";
+  mongoAddress = process.env.MONGODB_WIE_URL + "wie2";
 }
 
 // Connect to the DB
