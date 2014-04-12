@@ -31,12 +31,17 @@ ul {
   text-shadow: -1px -1px rgba(0,0,0,0.2), 1px 1px rgba(255,255,255,0.2);
 }
 
+#top-bar {
+  overflow-x: hidden;
+}
+
 #top-tabs {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: row;
+  overflow-x: hidden;
 }
 
 .top-tab {
@@ -53,7 +58,7 @@ ul {
 
 .top-tab > a {
   display: block;
-  padding: 0.5em;
+  padding: 0.4em;
   color: #f7f7f7;
   text-decoration: none;
 }
