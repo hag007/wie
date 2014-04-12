@@ -312,8 +312,15 @@
     isNotHere: function() {
       return !this.get('isLoading') && !this.get('dude.isHere');
     }.property('isLoading', 'dude.isHere'),
-    click: function() {
+
+    toggleHere: function() {
       this.get('dude').toggleHere().save();
+    },
+
+    gestures: {
+      tap: function() {
+        this.toggleHere();
+      }
     }
   });
 

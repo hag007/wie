@@ -37,11 +37,17 @@ io.sockets.on('connection', function(socket) {
   });
 });
 
+var mongoAddress = process.env.MONGOHQ_URL || "mongodb://localhost/wie2_test";
+if (process.env.VCAP_SERVICES) {
+  var env = JSON.parse(process.env.VCAP_SERVICES);
+  mongoAddress = env['mongodb-1.8'][0]['credentials'];
+}
+
 // Connect to the DB
-Mongoose.connect(process.env.MONGOHQ_URL || "mongodb://localhost/wie2_test");
+Mongoose.connect(mongoAddress);
 
 if (!module.parent) {
-  var port = process.env.PORT || 8080;
+  var port = process.env.PORT || process.env.VCAP_APP_PORT || 8080;
   server.listen(port);
   console.log("Listening on port " + port + "..");
 }
