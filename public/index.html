@@ -103,6 +103,17 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/hammer.js/1.0.6/hammer.min.js"></script>
 <script src="/components/ember-hammer/ember-hammer.js"></script>
 <script>
+  var lastY;
+  $(document).bind('touchmove', function (e){
+      var currentY = e.touches[0].clientY;
+      if (currentY !== lastY){
+          // moved vertically
+          return;
+      }
+      lastY = currentY;
+      //insert code if you want to execute something when an horizontal touchmove is made
+  });
+
   var setX = function($this, x) {
     var translate3d = 'translate3d(' + x + 'px, 0, 0)';
     $this.css({
