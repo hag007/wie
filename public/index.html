@@ -458,15 +458,6 @@
     }
   });
 
-  App.UpdateView = Em.View.extend({
-    didInsertElement: function() {
-      var myListItem = this.$(".is-me");
-      if (myListItem.length === 1) {
-        window.scrollTo(0, myListItem.offset().top);
-      }
-    }
-  });
-
   App.UpdateController = Em.ArrayController.extend({
     teams: function() {
       var teams = {'1': [],'2': [],'3': [],'4': [],'5': [],'6': []};
