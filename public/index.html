@@ -105,7 +105,15 @@
     template: "<img src='/ajax-loader.gif'>"
   })
 
-  App.Socket = io.connect();
+  var getSocketAddress = function() {
+    var hostname = window.location.hostname;
+    var protocol = window.location.protocol;
+    var port = (protocol === "http:") ? "8000" : "8443";
+
+    return protocol + "//" + hostname + ":" + port;
+  };
+
+  App.Socket = io.connect(getSocketAddress());
   App.Socket.on('userStatusChange', function(data) {
     console.log("got data: ", data);
     App.Dude.store.find("dude", data.id).then(function(dude) {
