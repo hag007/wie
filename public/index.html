@@ -414,7 +414,9 @@
   App.UpdateView = Em.View.extend({
     didInsertElement: function() {
       var myListItem = this.$(".is-me");
-      window.scrollTo(0, myListItem.offset().top);
+      if (myListItem.length === 1) {
+        window.scrollTo(0, myListItem.offset().top);
+      }
     }
   });
 
