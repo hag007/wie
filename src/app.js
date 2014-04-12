@@ -47,7 +47,7 @@ if (process.env.VCAP_SERVICES) {
 Mongoose.connect(mongoAddress);
 
 if (!module.parent) {
-  var port = process.env.PORT || process.env.VCAP_APP_PORT || 8080;
+  var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || process.env.VCAP_APP_PORT || 8080;
   server.listen(port);
   console.log("Listening on port " + port + "..");
 }
