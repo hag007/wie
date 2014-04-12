@@ -1,0 +1,14 @@
+{
+  "name": "ember-hammer",
+  "homepage": "https://github.com/chriswessels/ember-hammer",
+  "_release": "23add8dffb",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "23add8dffbe7e73fa85a46f4d9757ee646b6ad3e"
+  },
+  "_source": "git://github.com/chriswessels/ember-hammer.git",
+  "_target": "*",
+  "_originalSource": "chriswessels/ember-hammer",
+  "_direct": true
+}

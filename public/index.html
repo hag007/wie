@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="/components/alef/alef.css">
+  <title>Hey</title>
+</head>
+<body>
+<script type="text/x-handlebars">
+<header id="top-bar">
+  <span id="app-title">
+    /where.is.everybody/
+  </span>
+
+  <ul id="top-tabs">
+    <li class="top-tab">{{#link-to 'update'}}Update{{/link-to}}</li>
+    <li class="top-tab">{{#link-to 'report'}}Report{{/link-to}}</li>
+  </ul>
+</header>
+<div id="main-page">
+{{outlet}}
+</div>
+</script>
+<script type="text/x-handlebars" data-template-name="report">
+  <span id="report-datetime">תאריך ושעה: {{ formattedTime }}</span>
+  <h1 id="report-title">מצב&quot;ה</h1>
+
+  <p id="report-details">
+    <strong>מצ&quot;ל:</strong> {{ matzal }}<br />
+    <strong>מצ&quot;ן:</strong> {{ matzan }}<br />
+    <strong>חסרים:</strong> {{ missing }}
+  </p>
+
+  <ul>
+  {{#each missingDudes}}
+    {{report-dude who=this}}
+  {{/each}}
+  </ul>
+</script>
+<script type="text/x-handlebars" data-template-name="update">
+  <ul>
+  {{#each teams}}
+  <li>
+    <a name="team-{{team}}" class="team-divider">צוות {{ team }}</a>
+    <ul>
+    {{#each members}}
+      <li class="dude-list">
+        {{dude-here dude=this}}
+        <div class="update-matzeva-dude-info">
+          <span class="update-matzeva-dude-name">{{ name }}</span>
+          <div class="update-matzeva-additional-info">
+            <a click="#" class="update-matzeva-dude-reason">
+            {{#if isEditing}}
+              {{edit-why who=this placeholder="לא נוכח" }}
+            {{else}}
+              <span class="update-matzeva-dude-reason-text" {{action 'editWhy' this on="doubleClick"}}>{{ whyOrHere }}</span>
+            {{/if}}
+            </a>
+            <span class="update-matzeva-last-updated">{{ lastUpdated }}</span>
+          </div>
+        </div>
+      </li>
+    {{/each}}
+    </ul>
+  </li>
+  {{/each}}
+</ul>
+</script>
+<script type="text/x-handlebars" data-template-name="components/edit-why">
+  {{input value=bufferedWhy class="edit-text-input" escape-press='cancelEditing' focus-out='saveWhy' insert-newline='saveWhy' }}
+</script>
+<script type="text/x-handlebars" data-template-name="stuffffff">
+    <button class="save button" {{action "saveWhy" this}}><i class="fa-check"></i></button> <button class="cancel button" {{action 'cancelEditing' this}}><i class="fa-times"></i></button>
+</script>
+<script type="text/x-handlebars" data-template-name="report-dude">
+  <span class="report-team">{{team}}</span>
+  <div class="report-dude-details">
+    <span class="report-dude-name">{{ name }}</span>
+    <span class="report-dude-why">{{ why }}</span>
+  </div>
+</script>
+<script src="/components/jquery/dist/jquery.min.js"></script>
+<script src="/components/handlebars/handlebars.js"></script>
+<script src="/components/ember/ember.js"></script>
+<script src="/components/ember-data/ember-data.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/hammer.js/1.0.6/hammer.min.js"></script>
+<script src="/components/ember-hammer/ember-hammer.js"></script>
+<script>
+  var App = Em.Application.create({
+    VERSION: '0.0.1',
+    LOG_TRANSITIONS: true,
+    ready: function() {      
+    }
+  });
+
+  App.Socket = io.connect();
+  App.Socket.on('userStatusChange', function(data) {
+    console.log("got data: ", data);
+    App.Dude.store.find("dude", data.id).then(function(dude) {
+      dude.setProperties({ here: data.here, why: data.why });
+    });
+  });
+
+  App.EditWhyComponent = Ember.Component.extend({
+    bufferedWhyBinding: Ember.Binding.oneWay('who.why'),
+    didInsertElement: function() {
+      var $textfield = this.$(".edit-text-input");
+      $textfield.focus();
+      $textfield.val($textfield.val());
+    },
+
+    actions: {
+      cancelEditing: function() {
+        this.set('bufferedWhy', this.get('who.why'));
+        this.set('who.isEditing', false);
+      },
+      saveWhy: function() {
+        var who = this.get('who');
+        var why = this.get('bufferedWhy').trim();
+        
+        
+        if (who.get('why') === why) {
+          who.set('isEditing', false);
+        } else {
+          if (why === '') {
+            why = 'לא נוכח';
+          }
+          who.set('why', why);
+          who.set('here', false);
+          who.save().then(function() {
+            who.set('isEditing', false);
+          });
+        }
+      }
+    }
+  });
+
+  App.ReportController = Em.ArrayController.extend({
+    matzal: function() {
+      return this.get('model.length');
+    }.property('model'),
+
+    matzan: function() {
+      return this.get('model').filter(function(dude) {
+        return dude.get('here');
+      }).length;
+    }.property('model.@each.here'),
+
+    missing: function() {
+      return this.get('model').filter(function(dude) {
+        return !dude.get('here');
+      }).length;
+    }.property('model.@each.here'),
+
+    missingDudes: function() {
+      return this.get('model').filter(function(dude) {
+        return !dude.get('here');
+      }).sortBy('team')
+    }.property('model.@each.here'),
+
+    formattedTime: function() {
+      var time = this.get('currentTime');
+
+      var formatted = moment(time).format("DD/MM/YYYY hh:mm:ss");
+
+      return formatted;
+    }.property('currentTime')
+  });
+
+  App.ReportDudeView = Em.View.extend({
+    tagName: 'li',
+    templateName: 'report-dude',
+    classNames: ['dude-list'],
+    classNameBindings: ['aboutToDelete'],
+
+    teamBinding: 'who.team',
+    nameBinding: 'who.name',
+    whyBinding: 'who.why',
+
+    setX: function(x) {
+//      if(Modernizr.csstransforms3d) {
+      var $this = this.$();
+      var translate3d = 'translate3d(' + x + 'px, 0, 0)';
+      $this.css({
+        transform: translate3d,
+        oTransform: translate3d,
+        msTransform: translate3d,
+        mozTransform: translate3d,
+        webkitTransform: translate3d + " scale3d(1,1,1)"
+      });
+//      }
+//      else if(Modernizr.csstransforms) {
+//          this.container.style.transform = 'translate(0,'+height+'px) ';
+//          this.container.style.oTransform = 'translate(0,'+height+'px)';
+//          this.container.style.msTransform = 'translate(0,'+height+'px)';
+//          this.container.style.mozTransform = 'translate(0,'+height+'px)';
+//          this.container.style.webkitTransform = 'translate(0,'+height+'px)';
+//      }
+//      else {
+//          this.container.style.top = height+"px";
+//      }
+    },
+
+    haminados: function() {
+      console.log(this.get('who'));
+    }.on('didInsertElement'),
+
+    hammerOptions: {
+      swipe_velocity: 0.6
+    },
+
+    gestures: {
+      dragRight: function (event) {
+        var width = this.$().width();
+
+        var dragOffset = ((200/width) * event.gesture.deltaX);
+
+        if (dragOffset > 80) {
+          this.set('aboutToDelete', true);
+        } else {
+          this.set('aboutToDelete', false);
+        }
+
+        this.setX(dragOffset);
+
+        // do something like send an event down the controller/route chain
+        return false; // return `false` to stop bubbling
+      },
+      swipeRight: function(event) {
+        this.set('aboutToDelete', true);
+      },
+      release: function(event) {
+        if (!this.get('aboutToDelete')) {
+          this.setX(0);
+        } else {
+          this.set('who.here', true);
+        }
+      }
+    }
+  });
+
+  Ember.Handlebars.helper("report-dude", App.ReportDudeView);
+
+  App.ReportRoute = Em.Route.extend({
+    // activate: function() {},
+    // deactivate: function() {},
+
+    setupController: function(controller, model) {
+      controller.set('currentTime', new Date());
+      controller.set('model', model);
+    },
+    // renderTemplate: function() {},
+    // beforeModel: function() {},
+    // afterModel: function() {},
+    
+    model: function() {
+      return this.store.find('dude');
+    }
+  });
+  
+
+  // For showing nice thumbs up or down
+  App.DudeHereComponent = Ember.Component.extend({
+    tagName: 'span',
+    classNameBindings: ['dude.isHere:in-matzeva', 'dude.isHere:fa-thumbs-up:fa-thumbs-down'],
+    classNames: ['is-in-matzeva'],
+    click: function() {
+      this.get('dude').toggleHere().save();
+    }
+  });
+
+  App.ApplicationAdapter = DS.RESTAdapter.extend({
+    namespace: 'api'
+  });
+
+  App.DudeAdapter = App.ApplicationAdapter.extend({
+    updateRecord: function(store, type, record) {
+      App.Socket.emit('userStatusChange', {
+        _id: record.get('id'),
+        here: record.get('here'),
+        why: record.get('why')
+      });
+
+      console.log("emitted to server.");
+
+      return Ember.RSVP.resolve();
+    }
+  });
+  
+  App.Store = DS.Store.extend({
+    revision: 12,
+  });
+  
+  App.Dude = DS.Model.extend({
+    team: DS.attr('number'),
+    name: DS.attr('string'),
+    why: DS.attr('string'),
+    here: DS.attr('boolean'),
+    isHere: function() {
+      return this.get('here');
+    }.property('here'),
+    whyOrHere: function() {
+      var why = this.get('why').trim() === "" ? "לא נוכח" : this.get('why');
+      return this.get('here') ? "נוכח" : why;
+    }.property('here', 'why'),
+    toggleHere: function() {
+      this.set('here', !this.get('here'));
+      return this;
+    }
+  });
+
+    // var isHereClasses = !this.get("here") ? " fa-thumbs-down" : " in-matzeva fa-thumbs-up";
+    // return new Ember.Handlebars.SafeString("<span class=\"is-in-matzeva" + isHereClasses + "\"></span>");
+  // });
+
+  App.Router.map(function() {
+    this.route("report", { path: "/report" });
+    this.route("update", { path: "/update" });
+  });
+
+  App.IndexRoute = Em.Route.extend({
+    beforeModel: function() {
+      this.transitionTo("update");
+    }
+  });
+
+  App.UpdateController = Em.ArrayController.extend({
+    teams: function() {
+      var teams = {'1': [],'2': [],'3': [],'4': [],'5': [],'6': []};
+
+      this.get('model').forEach(function(dude) {
+        var team = dude.get('team');
+        teams[dude.get('team').toString()] = teams[dude.get('team').toString()] || [];
+        teams[dude.get('team').toString()].push(dude);
+      });
+
+
+      var teamsArray = (function() {
+        var arr = [];
+
+        var teamsKeys = Object.keys(teams);
+        for (var i = 0; i < teamsKeys.length; i++) {
+          var team = teamsKeys[i];
+          arr.push({ team: team, members: teams[team] });
+        }
+
+        return arr;
+      })();
+
+      return teamsArray;
+    }.property('model')
+  });
+
+  App.UpdateRoute = Em.Route.extend({
+    model: function() {
+      return this.store.find('dude');
+    },
+    actions: {
+      editWhy: function(dude) {
+        dude.set('isEditing', true);
+      }
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "wie2",
+  "version": "0.0.0",
+  "authors": [
+    "Gal Schlezinger <gal@spitfire.co.il>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "alef": "~2.0.0",
+    "ember": "~1.5",
+    "ember-data": "~1.0.0-beta.4",
+    "ember-hammer": "chriswessels/ember-hammer"
+  }
+}

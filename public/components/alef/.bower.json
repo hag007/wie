@@ -1,0 +1,19 @@
+{
+  "name": "alef",
+  "version": "2.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/yields/alef.git"
+  },
+  "homepage": "https://github.com/Schniz/alef",
+  "_release": "2.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.0.0",
+    "commit": "506b4c87db1b29a49a8892170783bce261873ac6"
+  },
+  "_source": "git://github.com/Schniz/alef.git",
+  "_target": "~2.0.0",
+  "_originalSource": "alef",
+  "_direct": true
+}

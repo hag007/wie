@@ -1,0 +1,16 @@
+---
+applications:
+  .:
+    name: wie
+    framework:
+      name: standalone
+      info:
+        mem: 64M
+        description: Standalone Application
+        exec: 
+    runtime: node10
+    command: node src/app
+    infra: aws
+    url: 
+    mem: 128M
+    instances: 1

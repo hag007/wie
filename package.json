@@ -1,0 +1,31 @@
+{
+  "name": "wie2",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Schniz/wie2.git"
+  },
+  "author": "Gal Schlezinger <gal@spitfire.co.il> (https://github.com/Schniz)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Schniz/wie2/issues"
+  },
+  "homepage": "https://github.com/Schniz/wie2",
+  "dependencies": {
+    "simpleplan": "0.0.1",
+    "express": "~4.0.0-rc4",
+    "monami": "> 0.0.2",
+    "mongoose": "~3.8.8",
+    "body-parser": "~1.0.1",
+    "cookie-parser": "~1.0.1",
+    "socket.io": "~0.9.16"
+  },
+  "devDependencies": {
+    "chai": "~1.9.1"
+  }
+}
