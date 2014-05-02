@@ -72,13 +72,13 @@
       {{#if isEditing}}
         {{edit-why who=this placeholder="לא נוכח" }}
       {{else}}
-        <span class="update-matzeva-dude-reason-text">{{ whyOrHere }}</span>
+        <span {{bind-attr class=":update-matzeva-dude-reason-text view.showItsMe::show"}}>{{ whyOrHere }}</span>
+        <span {{bind-attr class=":its-me :update-matzeva-dude-reason-text view.showItsMe:show"}}><i class="fa fa-user"></i> זה אני!</span>
       {{/if}}
       </a>
       <span class="update-matzeva-last-updated">{{ lastUpdated }}</span>
     </div>
   </div>
-  <span {{bind-attr class=":its-me view.showItsMe:show"}}><i class="fa fa-user"></i> זה אני!</span>
 </script>
 <script type="text/x-handlebars" data-template-name="components/edit-why">
   {{input value=bufferedWhy class="edit-text-input" escape-press='cancelEditing' focus-out='saveWhy' insert-newline='saveWhy' }}
@@ -105,13 +105,13 @@
 <script>
   var setX = function($this, x) {
     var translate3d = 'translate3d(' + x + 'px, 0, 0)';
-    $this.css({
+    /*$this.css({
       transform: translate3d,
       oTransform: translate3d,
       msTransform: translate3d,
       mozTransform: translate3d,
       webkitTransform: translate3d + " scale3d(1,1,1)"
-    });
+    });*/
   };
 
   var App = Em.Application.create({

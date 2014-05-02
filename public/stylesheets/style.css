@@ -200,13 +200,16 @@ ul {
   display: block;
 }
 
-.its-me {
+.update-matzeva-dude-reason-text {
   display: none;
-  color: #2f4eac;
 }
 
-.its-me.show {
+.update-matzeva-dude-reason-text.show {
   display: block;
+}
+
+.its-me {
+  color: #2f4eac;
 }
 
 .is-me {
