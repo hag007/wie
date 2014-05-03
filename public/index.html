@@ -171,10 +171,12 @@
     gestures: {
       dragLeft: function(event) {
         event.preventDefault();
+        event.gesture.preventDefault();
         return false;
       },
       dragRight: function(event) {
         event.preventDefault();
+        event.gesture.preventDefault();
         return false;
       }
     }
@@ -194,11 +196,15 @@
 
     gestures: {
       doubleTap: function(event) {
+        event.gesture.preventDefault();
+        event.preventDefault();
+
         this.set('dude.isEditing', true);
       },
 
       dragRight: function (event) {
         event.preventDefault();
+        event.gesture.preventDefault();
         var width = this.$().width();
 
         var dragOffset = ((200/width) * event.gesture.deltaX);
@@ -314,6 +320,7 @@
     gestures: {
       dragRight: function (event) {
         event.preventDefault();
+        event.gesture.preventDefault();
         var width = this.$().width();
 
         var dragOffset = ((200/width) * event.gesture.deltaX);
