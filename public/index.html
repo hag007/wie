@@ -1,8 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html manifest="cache.manifest">
 <head>
   <meta content="yes" name="apple-mobile-web-app-capable" />
   <meta content="minimum-scale=1.0, width=device-width, maximum-scale=1, user-scalable=no" name="viewport" />
+
+  <!-- iOS 6 iPhone -->
+  <link href="/images/touch-icon-57x57.png" sizes="57x57" rel="apple-touch-icon" />
+  <link href="/images/touch-icon-120x120.png" sizes="120x120" rel="apple-touch-icon" />
+
+  <!-- Splash screens -->
+   <link href="/images/touch-splash-image-320x460.png"
+         media="(device-width: 320px) and (device-height: 480px)
+           and (-webkit-device-pixel-ratio: 1)"
+         rel="apple-touch-startup-image">
+  <link href="/images/touch-startup-image-640x920.png"
+        media="(device-width: 320px) and (device-height: 480px)
+           and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image">
+  <link href="/images/touch-startup-image-640x1096.png"
+        media="(device-width: 320px) and (device-height: 568px)
+           and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image">
+
+  <link rel="shortcut icon" href="/images/shortcut-icon.png"/>
+
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
