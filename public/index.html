@@ -105,13 +105,13 @@
 <script>
   var setX = function($this, x) {
     var translate3d = 'translate3d(' + x + 'px, 0, 0)';
-    /*$this.css({
+    $this.css({
       transform: translate3d,
       oTransform: translate3d,
       msTransform: translate3d,
       mozTransform: translate3d,
       webkitTransform: translate3d + " scale3d(1,1,1)"
-    });*/
+    });
   };
 
   var App = Em.Application.create({
