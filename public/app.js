@@ -11,8 +11,13 @@ var setX = function($this, x) {
 
 var setY = function(height) {
   var _setIt = function() {
+    var translate3d = 'translate3d(0, ' + height + 'px, 0)';
     $(document.body).css({
-      transform: "translate3d(0, " + height + "px, 0)"
+      transform: translate3d,
+      oTransform: translate3d,
+      msTransform: translate3d,
+      mozTransform: translate3d,
+      webkitTransform: translate3d + " scale3d(1,1,1)"
     });
   };
 
