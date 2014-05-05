@@ -116,6 +116,11 @@ App.ApplicationView = Ember.View.extend({
 
   shouldRefreshDudes: function() {
     this.controller.store.find('dude');
+    
+    // Reconnect this fucker
+    if (!App.Socket.connected) {
+      App.Socket.socket.connect();
+    }
   }.on('refreshDudes')
 });
 
