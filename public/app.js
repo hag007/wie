@@ -16,7 +16,11 @@ var setY = function(height) {
     });
   };
 
-  requestAnimationFrame ? requestAnimationFrame(_setIt) : _setIt();
+  if (window.requestAnimationFrame) {
+    window.requestAnimationFrame(_setIt);
+  } else {
+    _setIt();
+  }
 };
 
 var App = Em.Application.create({
