@@ -24,6 +24,11 @@ mon.reopen({
 
 var app = express();
 var server = dependencies.server = require('http').createServer(app);
+app.use(function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin','*');
+
+  return next();
+});
 app.use(bodyParser());
 app.use('/api', mon);
 app.use(express.static(path.resolve(__dirname, "../public")));
