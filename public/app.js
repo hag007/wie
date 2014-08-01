@@ -376,7 +376,7 @@ App.Store = DS.Store.extend({
 });
 
 App.Dude = DS.Model.extend({
-  team: DS.attr('number'),
+  team: DS.attr('string'),
   name: DS.attr('string'),
   why: DS.attr('string', { defaultValue: "לא נוכח" }),
   here: DS.attr('boolean', { defaultValue: false }),
@@ -427,7 +427,7 @@ App.IndexRoute = Em.Route.extend({
 
 App.UpdateController = Em.ArrayController.extend({
   teams: function() {
-    var teams = {'1': [],'2': [],'3': [],'4': [],'5': [],'6': []};
+    var teams = {'הנגשת המידע': [],'אפליקטיבי 1': [],'אפליקטיבי 2': [],'GIS': []};
     var myTeam = null;
 
     this.get('model').forEach(function(dude) {

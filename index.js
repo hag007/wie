@@ -6,8 +6,32 @@ m.connect("mongodb://localhost/wie2_test");
 
 require('./src/models/Dude')(dep);
 
-var data = [{"team":1,"name":"ניר צ'קו","here":false,"why":"לא נוכח"},{"team":1,"name":"אלכס שפירו","here":false,"why":"לא נוכח"},{"team":1,"name":"רותם הנדל","here":false,"why":"לא נוכח"},{"team":1,"name":"סטס","here":false,"why":"לא נוכח"},{"team":1,"name":"רז אברהם","here":false,"why":"לא נוכח"},{"team":1,"name":"תום מריאנר","here":false,"why":"לא נוכח"},{"team":1,"name":"שלומי חתשואל","here":false,"why":"לא נוכח"},{"team":1,"name":"ראובן","here":false,"why":"לא נוכח"},{"team":2,"name":"ירון שרף","here":false,"why":"לא נוכח"},{"team":2,"name":"בני","here":false,"why":"לא נוכח"},{"team":2,"name":"תלם","here":false,"why":"לא נוכח"},{"team":2,"name":"ארז אבנילוב","here":false,"why":"לא נוכח"},{"team":2,"name":"חן בוטבול","here":false,"why":"לא נוכח"},{"team":2,"name":"שיר בן יהודה","here":false,"why":"לא נוכח"},{"team":2,"name":"פבל סובוטקו","here":false,"why":"לא נוכח"},{"team":2,"name":"שאול הולצמן","here":false,"why":"לא נוכח"},{"team":2,"name":"גל שלזינגר","here":false,"why":"לא נוכח"},{"team":2,"name":"גרשון פינטו","here":false,"why":"לא נוכח"},{"team":3,"name":"יהונתן ביטון","here":false,"why":"לא נוכח"},{"team":3,"name":"אור קדמי","here":false,"why":"לא נוכח"},{"team":3,"name":"לירון ארמן","here":false,"why":"לא נוכח"},{"team":3,"name":"ליאור צור","here":false,"why":"לא נוכח"},{"team":3,"name":"לירן אשואל","here":false,"why":"לא נוכח"},{"team":3,"name":"עמית בר-עוז","here":false,"why":"לא נוכח"},{"team":3,"name":"ניר גולדמכר","here":false,"why":"לא נוכח"},{"team":3,"name":"שמעון שימי יונוסוב","here":false,"why":"לא נוכח"},{"team":3,"name":"שני גפניאל","here":false,"why":"לא נוכח"},{"team":3,"name":"לי עופרי","here":false,"why":"לא נוכח"},{"team":3,"name":"צופית וייל","here":false,"why":"לא נוכח"},{"team":4,"name":"ולד סמולנסקי","here":false,"why":"לא נוכח"},{"team":4,"name":"יהונתן בניסטי","here":false,"why":"לא נוכח"},{"team":4,"name":"ליאור דריאל","here":false,"why":"לא נוכח"},{"team":4,"name":"מאור עמיחי","here":false,"why":"לא נוכח"},{"team":4,"name":"יואב אלימי","here":false,"why":"לא נוכח"},{"team":4,"name":"בן-ציון סויד","here":false,"why":"לא נוכח"},{"team":4,"name":"גיא בן מיור","here":false,"why":"לא נוכח"},{"team":4,"name":"רון זר-אביב","here":false,"why":"לא נוכח"},{"team":4,"name":"רותם מזרחי","here":false,"why":"לא נוכח"},{"team":4,"name":"כפיר סטריקובסקי","here":false,"why":"לא נוכח"},{"team":5,"name":"רז לוי","here":false,"why":"לא נוכח"},{"team":5,"name":"נוה כ\"ץ","here":false,"why":"לא נוכח"},{"team":5,"name":"נאור דוד","here":false,"why":"לא נוכח"},{"team":5,"name":"שבתאי דביר","here":false,"why":"לא נוכח"},{"team":5,"name":"שני ברבי","here":false,"why":"לא נוכח"},{"team":5,"name":"יוני שטרנשיין","here":false,"why":"לא נוכח"},{"team":5,"name":"סער סיני","here":false,"why":"לא נוכח"},{"team":5,"name":"ג'ו גרייהם","here":false,"why":"לא נוכח"},{"team":5,"name":"גיא גבאי","here":false,"why":"לא נוכח"},{"team":5,"name":"סרגיי קורולוב","here":false,"why":"לא נוכח"},{"team":6,"name":"ענת ליכטנשטיין","here":false,"why":"לא נוכח"},{"team":6,"name":"ניב אוחנה","here":false,"why":"לא נוכח"},{"team":6,"name":"דניאל גרפונקל","here":false,"why":"לא נוכח"},{"team":6,"name":"ליאונל ספוסניק","here":false,"why":"לא נוכח"},{"team":6,"name":"עידו דוסו מידן","here":false,"why":"לא נוכח"},{"team":6,"name":"ניב נצר","here":false,"why":"לא נוכח"},{"team":6,"name":"שקד אטיאס","here":false,"why":"לא נוכח"},{"team":6,"name":"אסף מורמי","here":false,"why":"לא נוכח"},{"team":6,"name":"חגי לוי","here":false,"why":"לא נוכח"},{"team":6,"name":"קובי מזרחי","here":false,"why":"לא נוכח"}];
-
+var data = [
+    {"team":"הנגשת המידע" ,"name":"עידן הללי","here":false,"why":"לא נוכח"},
+    {"team":"הנגשת המידע" ,"name":"בן-ציוד סויד","here":false,"why":"לא נוכח"},
+    {"team":"הנגשת המידע" ,"name":"מתן פרלמוטר","here":false,"why":"לא נוכח"},
+     {"team":"הנגשת המידע" ,"name":"איתי אדרי","here":false,"why":"לא נוכח"},
+    {"team":"הנגשת המידע" ,"name":"ניב גבאי","here":false,"why":"לא נוכח"},
+    {"team":"אפליקטיבי 1" ,"name":"אלי גולדברג","here":false,"why":"לא נוכח"},
+    {"team":"אפליקטיבי 1" ,"name":"אלון כץ","here":false,"why":"לא נוכח"},
+    {"team":"אפליקטיבי 1" ,"name":"מעין פאעל","here":false,"why":"לא נוכח"},
+    {"team":"אפליקטיבי 1" ,"name":"רן דרור","here":false,"why":"לא נוכח"},
+    {"team":"אפליקטיבי 1" ,"name":"חגי לוי","here":false,"why":"לא נוכח"},
+     {"team":"אפליקטיבי 2" ,"name":"חבר פרבר","here":false,"why":"לא נוכח"},
+    {"team":"אפליקטיבי 2","name":"איתי שטיינר","here":false,"why":"לא נוכח"},
+    {"team":"אפליקטיבי 2","name":"עמרי כדורי","here":false,"why":"לא נוכח"},
+    {"team":"אפליקטיבי 2","name":"הראל גלברג","here":false,"why":"לא נוכח"},
+    {"team":"אפליקטיבי 2","name":"שיר אזאצ'י","here":false,"why":"לא נוכח"},
+    {"team":"אפליקטיבי 2","name":"גיא סולימה","here":false,"why":"לא נוכח"},
+     {"team":"GIS","name":"איתי חיימסקי","here":false,"why":"לא נוכח"},
+    {"team":"GIS","name":"ספיר דיגמל","here":false,"why":"לא נוכח"},
+    {"team":"GIS","name":"ליטל נסרי","here":false,"why":"לא נוכח"},
+    {"team":"GIS","name":"עדיאל גורן","here":false,"why":"לא נוכח"},
+    {"team":"GIS","name":"עמרי לוי","here":false,"why":"לא נוכח"}
+]
+    
+    
+    
 data.forEach(function(dudeData) {
   new m.models.Dude(dudeData).save(function(err, data) {
     console.log(err ? 'error' : 'success');

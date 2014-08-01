@@ -5,7 +5,7 @@ module.exports = function(Mongoose) {
     here: Boolean,
     why: String,
     name: String,
-    team: Number
+    team: String
   });
 
   dudes.methods.toJSON = function() {

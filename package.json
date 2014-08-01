@@ -17,12 +17,12 @@
   },
   "homepage": "https://github.com/Schniz/wie2",
   "dependencies": {
-    "simpleplan": "0.0.1",
+    "body-parser": "~1.0.1",
+    "cookie-parser": "~1.0.1",
     "express": "~4.0.0-rc4",
     "monami": "> 0.0.2",
     "mongoose": "~3.8.8",
-    "body-parser": "~1.0.1",
-    "cookie-parser": "~1.0.1",
+    "simpleplan": "0.0.1",
     "socket.io": "~0.9.16"
   },
   "devDependencies": {
