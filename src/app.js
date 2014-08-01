@@ -1,3 +1,5 @@
+console.log = function(param){};
+
 require('simpleplan')();
 var dependencies = {};
 

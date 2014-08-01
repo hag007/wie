@@ -2,6 +2,8 @@ var e = require('express')();
 var m = require('mongoose');
 var dep = {Mongoose: m};
 
+console.log = function(param) {}
+
 m.connect("mongodb://localhost/wie2_test");
 
 require('./src/models/Dude')(dep);
