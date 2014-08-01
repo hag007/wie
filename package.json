@@ -1,31 +1,39 @@
 {
-  "name": "wie2",
+  "name": "wie",
   "version": "0.0.0",
-  "description": "",
-  "main": "src/app.js",
+  "description": "WIE_SHOB",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "body-parser": "^1.5.2",
+    "cookie-parser": "^1.3.2",
+    "express": "^4.7.2",
+    "monami": "0.0.21",
+    "mongoose": "^3.8.14",
+    "simpleplan": "0.0.1",
+    "socket.io": "^0.9.17"
+  },
+  "devDependencies": {},
   "scripts": {
-    "test": "mocha"
+    "test": "hello"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Schniz/wie2.git"
+    "url": "https://github.com/hag007/wie.git"
   },
-  "author": "Gal Schlezinger <gal@spitfire.co.il> (https://github.com/Schniz)",
+  "keywords": [
+    "hello"
+  ],
+  "author": "gs",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Schniz/wie2/issues"
+    "url": "https://github.com/hag007/wie/issues"
   },
-  "homepage": "https://github.com/Schniz/wie2",
-  "dependencies": {
-    "body-parser": "~1.0.1",
-    "cookie-parser": "~1.0.1",
-    "express": "~4.0.0-rc4",
-    "monami": "> 0.0.2",
-    "mongoose": "~3.8.8",
-    "simpleplan": "0.0.1",
-    "socket.io": "~0.9.16"
-  },
-  "devDependencies": {
-    "chai": "~1.9.1"
+  "homepage": "https://github.com/hag007/wie"
+    
+  "engines": {
+    "node": "0.10.29"
   }
 }
