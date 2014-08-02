@@ -1,30 +1,31 @@
 {
-  "name": "wie2",
-  "version": "0.0.0",
-  "description": "",
-  "main": "src/app.js",
-  "scripts": {
-    "test": "mocha"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Schniz/wie2.git"
-  },
-  "author": "Gal Schlezinger <gal@spitfire.co.il> (https://github.com/Schniz)",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Schniz/wie2/issues"
-  },
-  "homepage": "https://github.com/Schniz/wie2",
-  "dependencies": {
-    "body-parser": "^1.0.1",
-    "cookie-parser": "^1.0.1",
-    "express": "^3.2.6",
-    "monami": "0.0.21",
-    "mongoose": "~3.8.8",
-    "simpleplan": "0.0.1"
-  },
-  "devDependencies": {
-    "chai": "~1.9.1"
-  }
+    "name": "wie2",
+    "version": "0.0.0",
+    "description": "",
+    "main": "src/app.js",
+    "scripts": {
+        "test": "mocha"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Schniz/wie2.git"
+    },
+    "author": "Gal Schlezinger <gal@spitfire.co.il> (https://github.com/Schniz)",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Schniz/wie2/issues"
+    },
+    "homepage": "https://github.com/Schniz/wie2",
+    "dependencies": {
+        "body-parser": "^1.0.1",
+        "cookie-parser": "^1.0.1",
+        "express": "^3.2.6",
+        "monami": "0.0.21",
+        "mongoose": "~3.8.8",
+        "simpleplan": "0.0.1",
+        "socket.io": "~0.9.16"
+    },
+    "devDependencies": {
+        "chai": "~1.9.1"
+    }
 }
